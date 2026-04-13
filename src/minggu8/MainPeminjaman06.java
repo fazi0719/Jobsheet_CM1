@@ -45,12 +45,14 @@ public class MainPeminjaman06 {
 
             switch (pilihan) { // struktur kontrol switch-case untuk menangani berbagai pilihan menu yang dipilih oleh pengguna
 
+            // Menu 1 digunakan untuk menampilkan seluruh data mahasiswa menggunakan for-each.”
                 case 1:
                     System.out.println("\n=== DATA MAHASISWA ===");
                     for (Mahasiswa06 m : mhsList) { // perulangan for-each untuk menampilkan data mahasiswa yang tersimpan dalam array mhsList
                         m.tampilMahasiswa(); // memanggil method tampilMahasiswa() untuk menampilkan data mahasiswa pada setiap objek Mahasiswa06 dalam array mhsList
                     }
                     break; // perintah break untuk keluar dari struktur switch setelah mengeksekusi case yang sesuai dengan pilihan pengguna
+
                 case 2:
                     System.out.println("\n=== DATA BUKU ===");
                     for (Buku06 b : bukuList) {
@@ -98,53 +100,24 @@ public class MainPeminjaman06 {
                     break;
 
                 case 6:
-                    // Bubble sort berdasarkan NIM sebelum binary search
-                    for (int i = 0; i < peminjamanList.length - 1; i++) {  // perulangan untuk melakukan sorting menggunakan algoritma bubble sort berdasarkan NIM, dimulai dari indeks 0 hingga indeks kedua terakhir dari array peminjamanList
-                        for (int j = i + 1; j < peminjamanList.length; j++) { // perulangan nested untuk membandingkan elemen-elemen dalam array peminjamanList, dimulai dari indeks i + 1 hingga akhir array
-                            if (peminjamanList[i].mhs.nim.compareTo(peminjamanList[j].mhs.nim) > 0) { 
-                                PeminjamanBuku06 temp = peminjamanList[i];
-                                peminjamanList[i] = peminjamanList[j];
-                                peminjamanList[j] = temp;
-                            }
-                        }
+                 System.out.print("Masukkan NIM yang dicari: ");
+                    String cari = sc.nextLine();
+
+                     boolean ketemu = false;
+
+                 System.out.println("\n=== HASIL PENCARIAN ===");
+    
+                 for (PeminjamanBuku06 p : peminjamanList) { // program akan mengecek semua array satu persatu
+                   if (p.mhs.nim.equals(cari)) { // utk mencari NIM jika lebih dari 1 maka akan menampilkan semua data yang memiliki NIM tersebut
+                   p.tampilPeminjaman();
+                     ketemu = true;
                     }
-
-                    System.out.print("Masukkan NIM yang dicari: ");
-                    String cari = sc.nextLine(); 
-
-                    int left = 0;
-                    int right = peminjamanList.length - 1;
-                    boolean ketemu = false;
-
-                    // BINARY SEARCH
-                    while (left <= right) { // perulangan while untuk melakukan pencarian menggunakan algoritma binary search, dimulai dengan indeks left di awal array dan indeks right di akhir array, 
-                                            // dan terus mempersempit rentang pencarian hingga ditemukan atau rentang pencarian habis
-                        int mid = (left + right) / 2; // menghitung indeks tengah (mid) dari rentang pencarian saat ini dengan menjumlahkan indeks left dan right, lalu membaginya dengan 2
-                        int hasil = peminjamanList[mid].mhs.nim.compareTo(cari); 
-
-                        if (hasil == 0) {
-                            System.out.println("\nData ditemukan:"); 
-                            peminjamanList[mid].tampilPeminjaman(); // jika hasil perbandingan adalah 0, berarti NIM yang dicari ditemukan pada indeks mid, 
-                            // maka menampilkan data peminjaman yang sesuai dengan NIM tersebut dengan memanggil method tampilPeminjaman()
-                            //  pada objek PeminjamanBuku06 yang berada di indeks mid dalam array peminjamanList
-                            ketemu = true; 
-                            break;
-                        } else if (hasil < 0) { // jika hasil perbandingan kurang dari 0, berarti NIM yang dicari lebih besar dari NIM pada indeks mid,
-                            
-                            left = mid + 1; // mempersempit pencarian ke bagian kanan dengan mengubah nilai left menjadi mid + 1
-                        } else {
-                            right = mid - 1; // jika hasil perbandingan lebih besar dari 0, berarti NIM yang dicari lebih kecil dari NIM pada indeks mid,
-                                              // mempersempit pencarian ke bagian kiri dengan mengubah nilai right menjadi mid - 1
-                        }
-                    }
-
-                    if (!ketemu) { // jika setelah proses pencarian selesai dan variabel ketemu masih bernilai false, berarti NIM yang dicari tidak ditemukan dalam array peminjamanList,
-                                     // maka menampilkan pesan "Data tidak ditemukan"
-                        System.out.println("Data tidak ditemukan");
-                    }
-                    break;
-            }
-
-        } while (pilihan != 0);
+                }
+                    if (!ketemu) {
+                System.out.println("Data tidak ditemukan");
+                }
+                break;
+        }
+    } while (pilihan != 0);
     }
 }
