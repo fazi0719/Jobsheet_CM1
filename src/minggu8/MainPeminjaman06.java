@@ -38,6 +38,7 @@ public class MainPeminjaman06 {
             System.out.println("4. Tampilkan Denda");
             System.out.println("5. Urutkan Berdasarkan Denda");
             System.out.println("6. Cari Berdasarkan NIM");
+            System.out.println("7. Tampilkan Data Peminjaman Terlambat");
             System.out.println("0. Keluar");
             System.out.print("Pilih : ");
             pilihan = sc.nextInt();
@@ -100,6 +101,7 @@ public class MainPeminjaman06 {
                     break;
 
                 case 6:
+                    // Menu 6 digunakan untuk mencari data peminjaman berdasarkan NIM menggunakan sequential search.
                  System.out.print("Masukkan NIM yang dicari: ");
                     String cari = sc.nextLine();
 
@@ -115,6 +117,23 @@ public class MainPeminjaman06 {
                 }
                     if (!ketemu) {
                 System.out.println("Data tidak ditemukan");
+                }
+                break;
+
+                // tugas modifikasi
+                case 7:
+                System.out.println("\n=== DATA PEMINJAMAN TERLAMBAT ===");
+
+                boolean adaTerlambat = false;
+                for (PeminjamanBuku06 p : peminjamanList) {
+                    if (p.terlambat > 0) { // hanya tampil yang terlambat
+                         p.tampilPeminjaman();
+                            adaTerlambat = true;
+                         }
+                }
+
+                    if (!adaTerlambat) {
+                    System.out.println("Tidak ada data peminjaman yang terlambat");
                 }
                 break;
         }
